@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>miaoのBlog</title>
+  <title>苗の博</title>
   
   <subtitle>无迹方知时光逝，有梦不觉人生寒</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>http://yoursite.com/</id>
   
   <author>
-    <name>miao</name>
+    <name>禾田</name>
     
   </author>
   
