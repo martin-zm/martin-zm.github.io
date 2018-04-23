@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-23T06:33:35.850Z</updated>
+  <updated>2018-04-23T09:30:57.086Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java IO 基础</title>
+    <link href="http://yoursite.com/2018/04/23/java-IO-%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/2018/04/23/java-IO-基础/</id>
+    <published>2018-04-23T09:29:01.000Z</published>
+    <updated>2018-04-23T09:30:57.086Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考：<a href="http://blog.csdn.net/hxpjava1/article/details/56282385" target="_blank" rel="noopener">Java IO技术博客</a></p><h2 id="BIO（同步并阻塞）"><a href="#BIO（同步并阻塞）" class="headerlink" title="BIO（同步并阻塞）"></a>BIO（同步并阻塞）</h2><table><thead><tr><th style="text-align:center"></th><th style="text-align:center"></th><th style="text-align:center">字节输入流</th><th style="text-align:center">字节输出流</th><th style="text-align:center">字符输入流</th><th>字符输出流</th></tr></thead><tbody><tr><td style="text-align:center">抽象基类</td><td style="text-align:center">InputStream</td><td style="text-align:center">OutputStream</td><td style="text-align:center">Reader</td><td style="text-align:center">Writer</td></tr><tr><td style="text-align:center">访问文件</td><td style="text-align:center">FileInputStream</td><td style="text-align:center">FileOutputStream</td><td style="text-align:center">FileReader</td><td style="text-align:center">FileWriter</td></tr><tr><td style="text-align:center">访问数组</td><td style="text-align:center">ByteArrayInputStream</td><td style="text-align:center">ByteArrayOutputStream</td><td style="text-align:center">CharArrayReader</td><td style="text-align:center">CharArrayWriter</td></tr><tr><td style="text-align:center">缓冲流</td><td style="text-align:center">BufferedInputStream</td><td style="text-align:center">BufferedOutputStream</td><td style="text-align:center">BufferedReader</td><td style="text-align:center">BufferedWriter</td></tr><tr><td style="text-align:center">打印流</td><td style="text-align:center"></td><td style="text-align:center">PrintStream</td><td style="text-align:center"></td><td style="text-align:center">PrintWriter</td></tr></tbody></table><p><br><br><strong>说明：</strong> 上面是一些比较常用的输入输出流，缓冲流可以一次处理一行文本，以换行符为标志，打印流的输出功能非常强大，方便处理打印操作。</p><p><strong>注意：</strong> PrintWriter 的close()方法通常自带flush()。</p><p><strong>使用场景：</strong>   </p><p>输入输出内容为文本： 使用字符流 </p><p>输入输出内容为二进制： 使用字节流</p><blockquote><p><strong>java使用处理流来包装节点流是一种典型的装饰器设计模式。</strong>  </p></blockquote><h2 id="RandomAccessFile类"><a href="#RandomAccessFile类" class="headerlink" title="RandomAccessFile类"></a>RandomAccessFile类</h2><p><strong>说明：</strong> RandomAccessFile是java输入/输出流体系中功能最丰富的文件内容访问类，可以读取和向文件写入数据。  </p><p><strong>优点：</strong>支持“随机访问”，可以直接跳转到文件的任意位置读写数据。 （注意：在向文件指定位置插入内容时，会覆盖掉插入点之后原有的内容） </p><p><strong>缺点：</strong>只能读写文件，不能读写其它IO节点。</p><p><strong>使用场景：</strong>  </p><p>1）只需要访问文件部分内容，而不是把文件从头读到尾。</p><p>2）向已存在的文件后面追加内容，而不是从文件开始的地方直接输出。</p><h2 id="对象序列化"><a href="#对象序列化" class="headerlink" title="对象序列化"></a>对象序列化</h2><p><strong>说明：</strong>将实现序列化的Java对象转换成字节序列，这些字节序列可以保存在磁盘上，或者能够通过网络传输，方便以后重新再恢复成原来的对象。</p><p><strong>注意：</strong>定义的类必须实现Serializable接口</p><h2 id="NIO（同步非阻塞）（JDK1-4）"><a href="#NIO（同步非阻塞）（JDK1-4）" class="headerlink" title="NIO（同步非阻塞）（JDK1.4）"></a>NIO（同步非阻塞）（JDK1.4）</h2><blockquote><p>新IO采用了内存映射文件的方式来处理输入/输出，新IO将文件或文件的一段区域映射到内存中，这样就可以像访问内存一样来访问文件了（模拟了操作系统虚拟内存的概念），相比传统的输入/输出要快！</p></blockquote><p><strong>Channels and Buffers（通道和缓冲区）：</strong> 标准的IO基于字节流和字符流进行操作的，而NIO是基于通道（Channel）和缓冲区（Buffer）进行操作，数据总是从通道读取到缓冲区中，或者从缓冲区写入到通道中。  </p><p><strong>Selectors（选择器）：</strong> Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。</p><p><strong>Asynchronous IO（异步IO）：</strong>  Java NIO可以让你异步的使用IO，例如：当线程从通道读取数据到缓冲区时，线程还是可以进行其他事情。当数据被写入到缓冲区时，线程可以继续处理它。从缓冲区写入通道也类似。</p>]]></content>
+    
+    <summary type="html">
+    
+      java IO 基础知识总结
+    
+    </summary>
+    
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://yoursite.com/tags/java/"/>
+    
+      <category term="面试" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>java集合面试</title>
