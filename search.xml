@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Linux常用命令]]></title>
+    <url>%2F2018%2F04%2F24%2FLinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[竖杠 |管道就像水管一样，将前面命令的执行结果输送给后面的命令。 123//&apos;ls -l&apos;负责收集当前目录下的文件信息，然后将这些文件名作为结果输送到管道，//wc这个命令接着就从管道中把它们读取出来，并计算出行数，单词个数和总字符数。ls -l | wc 查看日志命令(tail)tail的功能就是输出文件的尾部内容。 Linux文件的日志文件通常存储在’/var/log’目录下。 123456//输出syslog文件的尾部几行tail /var/log/syslog//tail会继续监视日志文件，输出写入到文件的下一行。这意味着你可以在终端窗口里面实时关注什么写入到syslogtail -f /var/log/syslog//只想查看写入到syslog的尾部5行tail -f -n 5 /var/log/syslog CPU相关命令ps：查看当前瞬间系统的进程信息 pstree：以树状方式查看当前系统的进程 top：持续跟踪系统的进程情况1234//动态跟踪所有进程（&lt;向左翻页，&gt;向右翻页）top//动态跟踪PID为1234的进程top -p 1234 kill：给一个指定的进程发送一个信号123456//列出当前系统所支持的所有信号kill -l//给PID为1234的进程发送9号信号kill -9 1234 //给PID为1234的进程发送SIGINT信号kill -s SIGINT 1234 nice：以某一个指定的NICE值启动进程12//以NICE值为5的起始状态来启动程序./examplenice -n 5 ./example renice：动态修改一个进程的NICE值12//将PID为1234的进程的NICE值调整为15renice -n 15 1234 网络相关命令ifconfig：查看系统当前活跃的网络接口123456//查看系统当前所有的活跃的网络接口信息ifconfig //查看eth0相关的信息ifconfig eth0 //将网络接口eth0的IP地址设置为192.168.1.5ifconfig eth0 192.168.1.5 ping：给某主机发送ICMP数据包以检测网络 12//给百度服务器发送ICMP数据包以检测网络是否连通ping www.baidu.com netstat：查看系统网络连接的相关信息 123456//查看系统中所有状态的网络连接信息netstat -a//查看系统中处于监听状态的网络连接信息netstat -l//查看系统中所有状态的TCP（或者UDP 或者UNIX域）的网络连接信息netstat -at （或者 netstat -au 或者 netstat -ax） ifdown：禁用网络接口 12//禁用网络接口eth0ifdown eth0 ifup：启用网络接口 12//启用网络接口eth0ifup eth0 host：查看域名所对应的IP地址12//查看域名www.baidu.com所对应的IP地址，以此来检测本机的DNS服务设置正确与否host www.baidu.com route：查看、设置路由和网关相关信息 1234//查看网关地址route -n//添加默认网关为192.168.1.1route add default gw 192.168.1.1 ln：创建一个连接文件 1234//为文件file创建一个硬连接（别名）,叫file1ln file file1 //为文件file创建一个软连接，叫file2 ln -s file file2]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[java IO 基础]]></title>
     <url>%2F2018%2F04%2F23%2Fjava-IO-%E5%9F%BA%E7%A1%80%2F</url>
     <content type="text"><![CDATA[参考：Java IO技术博客 BIO（同步并阻塞） 字节输入流 字节输出流 字符输入流 字符输出流 抽象基类 InputStream OutputStream Reader Writer 访问文件 FileInputStream FileOutputStream FileReader FileWriter 访问数组 ByteArrayInputStream ByteArrayOutputStream CharArrayReader CharArrayWriter 缓冲流 BufferedInputStream BufferedOutputStream BufferedReader BufferedWriter 打印流 PrintStream PrintWriter 说明： 上面是一些比较常用的输入输出流，缓冲流可以一次处理一行文本，以换行符为标志，打印流的输出功能非常强大，方便处理打印操作。 注意： PrintWriter 的close()方法通常自带flush()。 使用场景： 输入输出内容为文本： 使用字符流 输入输出内容为二进制： 使用字节流 java使用处理流来包装节点流是一种典型的装饰器设计模式。 RandomAccessFile类说明： RandomAccessFile是java输入/输出流体系中功能最丰富的文件内容访问类，可以读取和向文件写入数据。 优点：支持“随机访问”，可以直接跳转到文件的任意位置读写数据。 （注意：在向文件指定位置插入内容时，会覆盖掉插入点之后原有的内容） 缺点：只能读写文件，不能读写其它IO节点。 使用场景： 1）只需要访问文件部分内容，而不是把文件从头读到尾。 2）向已存在的文件后面追加内容，而不是从文件开始的地方直接输出。 对象序列化说明：将实现序列化的Java对象转换成字节序列，这些字节序列可以保存在磁盘上，或者能够通过网络传输，方便以后重新再恢复成原来的对象。 注意：定义的类必须实现Serializable接口 NIO（同步非阻塞）（JDK1.4） 新IO采用了内存映射文件的方式来处理输入/输出，新IO将文件或文件的一段区域映射到内存中，这样就可以像访问内存一样来访问文件了（模拟了操作系统虚拟内存的概念），相比传统的输入/输出要快！ Channels and Buffers（通道和缓冲区）： 标准的IO基于字节流和字符流进行操作的，而NIO是基于通道（Channel）和缓冲区（Buffer）进行操作，数据总是从通道读取到缓冲区中，或者从缓冲区写入到通道中。 Selectors（选择器）： Java NIO引入了选择器的概念，选择器用于监听多个通道的事件（比如：连接打开，数据到达）。因此，单个的线程可以监听多个数据通道。 Asynchronous IO（异步IO）： Java NIO可以让你异步的使用IO，例如：当线程从通道读取数据到缓冲区时，线程还是可以进行其他事情。当数据被写入到缓冲区时，线程可以继续处理它。从缓冲区写入通道也类似。]]></content>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-04-23T09:34:00.088Z</updated>
+  <updated>2018-04-24T09:16:44.868Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux常用命令</title>
+    <link href="http://yoursite.com/2018/04/24/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/2018/04/24/Linux常用命令/</id>
+    <published>2018-04-24T09:15:00.000Z</published>
+    <updated>2018-04-24T09:16:44.868Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="竖杠"><a href="#竖杠" class="headerlink" title="竖杠 |"></a>竖杠 |</h3><p>管道就像水管一样，将前面命令的执行结果输送给后面的命令。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//&apos;ls -l&apos;负责收集当前目录下的文件信息，然后将这些文件名作为结果输送到管道，</span><br><span class="line">//wc这个命令接着就从管道中把它们读取出来，并计算出行数，单词个数和总字符数。</span><br><span class="line">ls -l | wc</span><br></pre></td></tr></table></figure><hr><h3 id="查看日志命令-tail"><a href="#查看日志命令-tail" class="headerlink" title="查看日志命令(tail)"></a>查看日志命令(tail)</h3><p>tail的功能就是输出文件的尾部内容。  </p><p>Linux文件的日志文件通常存储在’/var/log’目录下。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//输出syslog文件的尾部几行</span><br><span class="line">tail /var/log/syslog</span><br><span class="line">//tail会继续监视日志文件，输出写入到文件的下一行。这意味着你可以在终端窗口里面实时关注什么写入到syslog</span><br><span class="line">tail -f /var/log/syslog</span><br><span class="line">//只想查看写入到syslog的尾部5行</span><br><span class="line">tail -f -n 5 /var/log/syslog</span><br></pre></td></tr></table></figure><hr><h3 id="CPU相关命令"><a href="#CPU相关命令" class="headerlink" title="CPU相关命令"></a>CPU相关命令</h3><p>ps：查看当前瞬间系统的进程信息</p><p>pstree：以树状方式查看当前系统的进程</p><p>top：持续跟踪系统的进程情况<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//动态跟踪所有进程（&lt;向左翻页，&gt;向右翻页）</span><br><span class="line">top</span><br><span class="line">//动态跟踪PID为1234的进程</span><br><span class="line">top -p 1234</span><br></pre></td></tr></table></figure></p><p>kill：给一个指定的进程发送一个信号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//列出当前系统所支持的所有信号</span><br><span class="line">kill -l</span><br><span class="line">//给PID为1234的进程发送9号信号</span><br><span class="line">kill -9 1234    </span><br><span class="line">//给PID为1234的进程发送SIGINT信号</span><br><span class="line">kill -s SIGINT 1234</span><br></pre></td></tr></table></figure></p><p>nice：以某一个指定的NICE值启动进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//以NICE值为5的起始状态来启动程序./example</span><br><span class="line">nice -n 5 ./example</span><br></pre></td></tr></table></figure></p><p>renice：动态修改一个进程的NICE值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//将PID为1234的进程的NICE值调整为15</span><br><span class="line">renice -n 15 1234</span><br></pre></td></tr></table></figure></p><hr><h3 id="网络相关命令"><a href="#网络相关命令" class="headerlink" title="网络相关命令"></a>网络相关命令</h3><p>ifconfig：查看系统当前活跃的网络接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//查看系统当前所有的活跃的网络接口信息</span><br><span class="line">ifconfig </span><br><span class="line">//查看eth0相关的信息</span><br><span class="line">ifconfig eth0 </span><br><span class="line">//将网络接口eth0的IP地址设置为192.168.1.5</span><br><span class="line">ifconfig eth0 192.168.1.5</span><br></pre></td></tr></table></figure></p><p>ping：给某主机发送ICMP数据包以检测网络</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//给百度服务器发送ICMP数据包以检测网络是否连通</span><br><span class="line">ping www.baidu.com</span><br></pre></td></tr></table></figure><p>netstat：查看系统网络连接的相关信息</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//查看系统中所有状态的网络连接信息</span><br><span class="line">netstat -a</span><br><span class="line">//查看系统中处于监听状态的网络连接信息</span><br><span class="line">netstat -l</span><br><span class="line">//查看系统中所有状态的TCP（或者UDP 或者UNIX域）的网络连接信息</span><br><span class="line">netstat -at （或者 netstat -au 或者 netstat -ax）</span><br></pre></td></tr></table></figure><p>ifdown：禁用网络接口</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//禁用网络接口eth0</span><br><span class="line">ifdown eth0</span><br></pre></td></tr></table></figure><p>ifup：启用网络接口</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//启用网络接口eth0</span><br><span class="line">ifup eth0</span><br></pre></td></tr></table></figure><p>host：查看域名所对应的IP地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//查看域名www.baidu.com所对应的IP地址，以此来检测本机的DNS服务设置正确与否</span><br><span class="line">host www.baidu.com</span><br></pre></td></tr></table></figure></p><p>route：查看、设置路由和网关相关信息</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//查看网关地址</span><br><span class="line">route -n</span><br><span class="line">//添加默认网关为192.168.1.1</span><br><span class="line">route add default gw 192.168.1.1</span><br></pre></td></tr></table></figure><p>ln：创建一个连接文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//为文件file创建一个硬连接（别名）,叫file1</span><br><span class="line">ln file file1 </span><br><span class="line">//为文件file创建一个软连接，叫file2 </span><br><span class="line">ln -s file file2</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;竖杠&quot;&gt;&lt;a href=&quot;#竖杠&quot; class=&quot;headerlink&quot; title=&quot;竖杠 |&quot;&gt;&lt;/a&gt;竖杠 |&lt;/h3&gt;&lt;p&gt;管道就像水管一样，将前面命令的执行结果输送给后面的命令。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://yoursite.com/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="http://yoursite.com/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>java IO 基础</title>
